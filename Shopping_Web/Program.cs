@@ -1,3 +1,4 @@
+// === 建立 WebApplicationBuilder 容器 ===
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,15 +14,22 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// HTTP轉換成HTTPS
 app.UseHttpsRedirection();
+
+// 載入靜態資源 例如：html, javascript, css, image... 等等
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCookiePolicy();
+
+// 授權驗證
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// 執行程式
 app.Run();

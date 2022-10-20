@@ -1,5 +1,6 @@
 ﻿{
   "iisSettings": {
+    // 驗證有關 可研究ADFS
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
@@ -11,7 +12,9 @@
     "Shopping_Web": {
       "commandName": "Project",
       "dotnetRunMessages": true,
+      // 啟動並開啟網頁
       "launchBrowser": true,
+      // 可利用更換Port已達到IIS驗證區域
       "applicationUrl": "https://localhost:7247;http://localhost:5247",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
