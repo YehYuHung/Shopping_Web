@@ -1,8 +1,17 @@
 // === 建立 WebApplicationBuilder 容器 ===
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+using Shopping_Web.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// 設定DB連線
+// ToDo 看之後有沒有 Config 之類的方式
+builder.Services.AddDbContext<Shopping_WebContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Shopping_WebContext") ?? throw new InvalidOperationException("there is no Shopping_WebContext ConnectionString in Config!")));
 
 var app = builder.Build();
 
