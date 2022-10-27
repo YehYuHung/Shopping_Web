@@ -7,22 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shopping_Web.Data;
 using Shopping_Web.Models;
+using Shopping_Web.Services;
+using Shopping_Web.Services.Interface;
 
 namespace Shopping_Web.Controllers
 {
     public class ProducesController : Controller
     {
         private readonly Shopping_WebContext _context;
+        private readonly IProduceService _produceService;
 
-        public ProducesController(Shopping_WebContext context)
+        public ProducesController(Shopping_WebContext context, IProduceService produceService)
         {
             _context = context;
+            _produceService = produceService;
         }
 
         // GET: Produces
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Produce.ToListAsync());
+            var produce = await _produceService.GetInitial();
+            return View(await _context.Produce.ToListAsync());
         }
 
         // GET: Produces/Details/5
