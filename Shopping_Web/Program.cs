@@ -12,7 +12,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // ToDo 分格 Service注入
-        new Program().ConfigureServices(builder.Services);
+        ConfigureServices(builder.Services);
 
         // 設定DB連線
         // ToDo 看之後有沒有 Config 之類的方式
@@ -50,11 +50,15 @@ internal class Program
         app.Run();
     }
 
-    public void ConfigureServices(IServiceCollection services)
+    public static void ConfigureServices(IServiceCollection services)
     {
         services.AddControllersWithViews();
 
+        //
+        services.AddHttpClient();
+
         // 加入這一行
         services.AddSingleton<IProduceService, ProduceService>();
+        services.AddSingleton<IConvertAPIService, ConvertAPIService>();
     }
 }
