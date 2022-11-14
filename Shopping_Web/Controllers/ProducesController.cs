@@ -16,17 +16,30 @@ namespace Shopping_Web.Controllers
     {
         private readonly Shopping_WebContext _context;
         private readonly IProduceService _produceService;
+        private readonly IConvertAPIService _convertAPIService;
 
-        public ProducesController(Shopping_WebContext context, IProduceService produceService)
+        /// <summary>
+        /// 建構式
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="produceService">生產服務</param>
+        /// <param name="convertAPIService">轉換API測試服務</param>
+        public ProducesController(Shopping_WebContext context, IProduceService produceService, IConvertAPIService convertAPIService)
         {
             _context = context;
             _produceService = produceService;
+            _convertAPIService = convertAPIService;
         }
 
         // GET: Produces
         public async Task<IActionResult> Index()
         {
             var produce = await _produceService.GetInitial();
+            
+            var request = await _produceService.GetRequestData();
+
+            await _convertAPIService.GetTypeProperty<Produce>();
+
             return View(await _context.Produce.ToListAsync());
         }
 
